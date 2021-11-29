@@ -1,0 +1,51 @@
+#Se requieren las siguientes bibliotecas para el análisis. 
+
+
+library("survival")
+library("survminer")
+library("Rcpp")
+
+#Los datos del cáncer de pulmón se utilizaron del paquete de supervivencia. 
+
+data("lung")
+head(lung)
+
+#Convertimos los datos a un formato utilizado por la librería survival.
+
+datos = Surv(lung$time, lung$status)
+
+#Hacemos el análisis haciendo el ajuste en cuanto al sexo.
+
+model <- survfit(datos ~ sex, data = lung)
+
+#Esta función calcula el tiempo medio de supervivencia y sus intervalos de 
+#confianza al 95% para cada grupo por su sexo.
+
+summary(model)$table
+
+
+#Calculamos el valor de $\chi^2$ para determinar si existe diferencia entre los 
+#dos grupos.
+
+
+surv_diff <- survdiff(Surv(time, status) ~ sex, data = lung)
+surv_diff
+
+#Obtenemos una $\chi^2=10.3$.
+#Calculamos el valor crítico $\chi_c^2$ para un grado de libertad.
+```{r}
+qchisq(0.05,1,lower.tail=FALSE)
+```
+#Dado que $\chi^2>\chi_c^2$, rechazamos la hipótesis nula.
+
+ggsurvplot(fit,
+           pval = FALSE, conf.int = TRUE,
+           risk.table = FALSE, # Add risk table
+           risk.table.col = "strata", # Change risk table color by groups
+           surv.median.line = "hv", # Specify median survival
+           ggtheme = theme_bw(), # Change ggplot2 theme
+           palette = c("#E7B800", "#2E9FDF"))
+
+
+#*Conclusión:* existe diferencia entre la tasa de supervivencia entre ambos grupos. Para ser más específicos, la taza de supervivencia del sexo 2 (426 días) es mayor a la del sexo 1 (207 días).
+#Visualizamos esto gráficamente.
