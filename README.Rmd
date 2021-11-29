@@ -1,7 +1,10 @@
 ---
 title: "Prueba de rango logarítmico"
-output: html_notebook
+author: "Baruch Mejía Martínez"
+date: "28/11/2021"
+output: rmarkdown::github_document
 ---
+
 
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
@@ -48,7 +51,7 @@ qchisq(0.05,1,lower.tail=FALSE)
 Dado que $\chi^2>\chi_c^2$, rechazamos la hipótesis nula.
 
 ```{r}
-ggsurvplot(fit,
+ggsurvplot(model,
            pval = FALSE, conf.int = TRUE,
            risk.table = FALSE, # Add risk table
            risk.table.col = "strata", # Change risk table color by groups
