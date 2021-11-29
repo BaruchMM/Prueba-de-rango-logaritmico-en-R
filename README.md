@@ -3,32 +3,11 @@ Prueba de rango logarítmico
 Baruch Mejía Martínez
 28/11/2021
 
-Se requieren las siguientes bibliotecas para el análisis.
+Se requieren los siguientes paquetes para el análisis.
 
 ``` r
 library("survival")
-```
-
-    ## Warning: package 'survival' was built under R version 4.1.2
-
-``` r
 library("survminer")
-```
-
-    ## Warning: package 'survminer' was built under R version 4.1.2
-
-    ## Loading required package: ggplot2
-
-    ## Loading required package: ggpubr
-
-    ## 
-    ## Attaching package: 'survminer'
-
-    ## The following object is masked from 'package:survival':
-    ## 
-    ##     myeloma
-
-``` r
 library("Rcpp")
 ```
 
@@ -37,11 +16,6 @@ supervivencia.
 
 ``` r
 data("lung")
-```
-
-    ## Warning in data("lung"): data set 'lung' not found
-
-``` r
 head(lung)
 ```
 
@@ -52,6 +26,17 @@ head(lung)
     ## 4    5  210      2  57   1       1       90        60     1150      11
     ## 5    1  883      2  60   1       0      100        90       NA       0
     ## 6   12 1022      1  74   1       1       50        80      513       0
+
+Nos interesa comparar las curvas de supervivencia de cada grupo. Para
+ello definimos una prueba de hipótesis. *H*<sub>0</sub>: En términos de
+supervivencia, no hay diferencia entre los dos grupos.
+*H*<sub>*A*</sub>: Existe una diferencia de supervivencia entre los dos
+grupos.
+
+*Definimos una regla de desición:* Para una significancia *α* = 0.05,
+con una *χ*<sub>*c*</sub><sup>2</sup> critica correspondiente, si la
+*χ*<sup>2</sup> de la prueba estadística es mayor que
+*χ*<sub>*c*</sub><sup>2</sup>, rechazamos la hipótesis nula.
 
 Convertimos los datos a un formato utilizado por la librería survival.
 
@@ -105,6 +90,8 @@ qchisq(0.05,1,lower.tail=FALSE)
 Dado que *χ*<sup>2</sup> &gt; *χ*<sub>*c*</sub><sup>2</sup>, rechazamos
 la hipótesis nula.
 
+Visualizamos esto gráficamente.
+
 ``` r
 ggsurvplot(model,
            pval = FALSE, conf.int = TRUE,
@@ -119,5 +106,4 @@ ggsurvplot(model,
 
 *Conclusión:* existe diferencia entre la tasa de supervivencia entre
 ambos grupos. Para ser más específicos, la taza de supervivencia del
-sexo 2 (426 días) es mayor a la del sexo 1 (207 días). Visualizamos esto
-gráficamente.
+sexo 2 (426 días) es mayor a la del sexo 1 (207 días).
