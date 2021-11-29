@@ -19,7 +19,7 @@ library("survival")
 library("survminer")
 library("Rcpp")
 ```
-Los datos del cáncer de pulmón se utilizaron del paquete de supervivencia. 
+Los datos del cáncer de pulmón obtuvieron del dataset "lung". 
 ```{r,message=FALSE,warning=FALSE}
 data("lung")
 head(lung)
@@ -28,7 +28,7 @@ Nos interesa comparar las curvas de supervivencia de cada grupo. Para ello defin
 $H_0:$ En términos de supervivencia, no hay diferencia entre los dos grupos. 
 $H_A:$ Existe una diferencia de supervivencia entre los dos grupos. 
 
-*Definimos una regla de desición:* Para una significancia $\alpha=0.05$, con una $\chi_c^2$ critica correspondiente, si la $\chi^2$ de la prueba estadística es mayor que $\chi_c^2$, rechazamos la hipótesis nula.
+*Definimos una regla de decisión :* Para una significancia $\alpha=0.05$, con una $\chi_c^2$ critica correspondiente, si la $\chi^2$ de la prueba estadística es mayor que $\chi_c^2$, rechazamos la hipótesis nula.
 
 Convertimos los datos a un formato utilizado por la librería survival.
 ```{r}
@@ -60,10 +60,10 @@ Visualizamos esto gráficamente.
 ```{r}
 ggsurvplot(model,
            pval = FALSE, conf.int = TRUE,
-           risk.table = FALSE, # Add risk table
-           risk.table.col = "strata", # Change risk table color by groups
-           surv.median.line = "hv", # Specify median survival
-           ggtheme = theme_bw(), # Change ggplot2 theme
+           risk.table = FALSE,
+           risk.table.col = "strata",
+           surv.median.line = "hv",
+           ggtheme = theme_bw(),
            palette = c("#E7B800", "#2E9FDF"))
 ```
 

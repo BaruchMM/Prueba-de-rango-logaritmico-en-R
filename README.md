@@ -11,8 +11,7 @@ library("survminer")
 library("Rcpp")
 ```
 
-Los datos del cáncer de pulmón se utilizaron del paquete de
-supervivencia.
+Los datos del cáncer de pulmón obtuvieron del dataset “lung”.
 
 ``` r
 data("lung")
@@ -33,7 +32,7 @@ supervivencia, no hay diferencia entre los dos grupos.
 *H*<sub>*A*</sub>: Existe una diferencia de supervivencia entre los dos
 grupos.
 
-*Definimos una regla de desición:* Para una significancia *α* = 0.05,
+*Definimos una regla de decisión :* Para una significancia *α* = 0.05,
 con una *χ*<sub>*c*</sub><sup>2</sup> critica correspondiente, si la
 *χ*<sup>2</sup> de la prueba estadística es mayor que
 *χ*<sub>*c*</sub><sup>2</sup>, rechazamos la hipótesis nula.
@@ -95,10 +94,10 @@ Visualizamos esto gráficamente.
 ``` r
 ggsurvplot(model,
            pval = FALSE, conf.int = TRUE,
-           risk.table = FALSE, # Add risk table
-           risk.table.col = "strata", # Change risk table color by groups
-           surv.median.line = "hv", # Specify median survival
-           ggtheme = theme_bw(), # Change ggplot2 theme
+           risk.table = FALSE,
+           risk.table.col = "strata",
+           surv.median.line = "hv",
+           ggtheme = theme_bw(),
            palette = c("#E7B800", "#2E9FDF"))
 ```
 
